@@ -1,4 +1,5 @@
 from tkinter import *
+import urllib.request
 import datetime
 import qrcode
 import os
@@ -22,6 +23,9 @@ class App(Tk):
         self.vie_de_classe = " -Vie de classe : Les papiers ( si nécessaire )\n"
         self.pastorale = " -Pastorale : Affaires de pastorale\n"
         self.title("EMPLOIE DU TEMPS")
+        urllib.request.urlretrieve("https://raw.githubusercontent.com/QuentinOnFire/Emploie-du-temps/main/img/ecole.ico", "ecole.ico")
+        self.iconbitmap("ecole.ico")
+        os.remove("ecole.ico")
         self.rien = ""
         self.geometry("1200x800")
         self.font = "Times New Roman", 30
@@ -79,7 +83,7 @@ class App(Tk):
     def impaire_paire(self, impaire, paire):
         nbr_week = datetime.datetime.now().isocalendar()[1]
         day = datetime.datetime.now().isocalendar()[2]
-        if day == 6 or day == 7:
+        if day == 6 or day == 7 or day == 5:
             nbr_week += 1
         nbr_week = nbr_week / 2
         if ".5" in str(nbr_week):
@@ -151,11 +155,11 @@ class App(Tk):
     def a(self):
         b = datetime.datetime.now().isocalendar()[2]
         list = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
-        return list[b]
+        return list[b - 1]
 
     def semaine(self):
         self.label_week = Label(self, text=f"Nous sommes le {self.nom_jour} {self.nb_jour} {self.mois}"
-                                        f"         Semaine : {datetime.datetime.now().isocalendar()[1]}", font=self.font)
+                                        f"       Semaine : {datetime.datetime.now().isocalendar()[1]}", font=self.font)
         self.label_week.place(x=20, y=740)
 
 App().mainloop()
